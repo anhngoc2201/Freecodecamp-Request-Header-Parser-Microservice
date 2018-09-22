@@ -16,10 +16,12 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get('/api/timestamp/:timestamp', function(request, response) {
-  var ret = Date.parse(request.params.timestamp);
+app.get('/api/whoami/', function(req, res) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  var language = req.headers['accept-language']
+  var software = req.headers['user-agent']
   
-  response.send({"ret":ret});
+  res.send({'ipaddress':ip, 'language':language,'softwave':software});
   
   
   
